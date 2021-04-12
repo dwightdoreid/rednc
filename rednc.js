@@ -6,10 +6,10 @@ addAppOptions();
 updateApp();
 //------------------------------------------------------------------------------------------------------
 function addAppOptions() {
-    const bg_options = ["bg-primary", "bg-secondary", "bg-success", "bg-danger", "bg-warning", "bg-info", "bg-dark", "bg-light", "bg-white", "bg-transparent", "bg-body"];
+    const bg_options = ["bg-dark", "bg-primary", "bg-secondary", "bg-success", "bg-danger", "bg-warning", "bg-info", "bg-light", "bg-white", "bg-transparent", "bg-body"];
 
     var app_optns = document.getElementById("app_options");
-    var optns = "";    
+    var optns = "";
     bg_options.forEach(element => {
         optns = optns + `<option name=${element}>${element}</option>`
 
@@ -52,12 +52,12 @@ function delComp() {
 function updateApp() {
     var app = document.getElementById("app");
     var app_bg = document.querySelector("#app_bg_color").value;
-    console.log(app_bg);
+    // console.log(app_bg);
     app.classList = "";
     app.classList.add(app_bg);
     app.classList.add("mt-0");
     // app.classList.add("min-vw-100");
-    console.log(app.classList);
+    // console.log(app.classList);
     app.innerHTML = " ";
     comps.forEach(element => {
         app.innerHTML = app.innerHTML + element[1].render();
@@ -71,6 +71,7 @@ function listElements() {
 //------------------------------------------------------------------------------------------------------
 function editComp(cid) {
     selected_id = cid;
+    var num_rows = 1;
     var rscol = document.getElementById("rscol");
     rscol.innerHTML = " ";
     rscol.innerHTML = rscol.innerHTML + "id: " + cid + "<br>"
@@ -83,7 +84,6 @@ function editComp(cid) {
                     const eid = element[1].id + "_" + subelement;
                     const prop_options = element[1].getPropOptions(subelement);
                     if (!(element[1].getPropOptions(subelement) === null)) {
-                        // console.log("options present")
                         var optns = "";
                         prop_options.forEach(optn => {
                             optns = optns + "<option value='" + optn + "'>" + optn + "</option>"
@@ -94,11 +94,18 @@ function editComp(cid) {
                             optns +
                             "</select>" + "<br>"
                     } else {
-                        rscol.innerHTML = rscol.innerHTML + subelement + "<br>" +
-                            "<input id='" + element[1].id + "_" + subelement +
-                            "' type='text' onchange=MM('" + element[1]
-                            .id + "," + subelement + "," + element[1].id + "_" + subelement +
-                            "')><br>"
+                        if (subelement.includes("text")) {
+                            num_rows = 10;
+                            console.log("text found");
+                            rscol.innerHTML = rscol.innerHTML + ` ${subelement} <br>
+                            <textarea id="${element[1].id}_${subelement}" 
+                            rows=5 onchange=MM('${element[1].id},${subelement},${element[1].id}_${subelement}')></textarea><br>`
+                        } else {
+                            console.log(typeof (element[1].id));
+                            rscol.innerHTML = rscol.innerHTML + ` ${subelement} <br>
+                            <input id="${element[1].id}_${subelement}" 
+                            type="text" onchange=MM('${element[1].id},${subelement},${element[1].id}_${subelement}')><br>`
+                        }
                     }
                 }
             })
