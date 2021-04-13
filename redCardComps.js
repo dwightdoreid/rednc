@@ -4,7 +4,7 @@ class CardA {
         this.type = "card"
         this.id = "-1";
         this.card_title = this.name;
-        this.text = "Card text";
+        this.text = "text";
         this.text_color = "text-light";
         this.bg_color = "bg-dark";
         this.border = "border";
@@ -63,7 +63,7 @@ class CardA {
 
 function addCardA() {
     var crd = new CardA("Card");
-    addComp(crd);
+    return addComp(crd);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,36 +129,38 @@ class CardB {
 
 function addCardB() {
     var crd = new CardB("Card");
-    addComp(crd);
+    return addComp(crd);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CardC extends CardA{
     constructor(name){
         super(name);
+        this.texta_bottom = "texta_bottom";
         this.textb = "text b";
-        this.card_title = "Card Title";
-        this.card_titleb = "Card Titleb";
-        this.card_img = "";        
-        this.editable_props.splice(-1,0,"card_img","card_titleb","textb");
+        this.textb_bottom = "textb_bottom";
+        this.card_title_a = "card_title_a";
+        this.card_title_b = "card_title_b";
+        this.card_img = "bi-cloud-moon-fill";        
+        this.editable_props.splice(-1,0,"card_img","card_title_a","card_title_b","textb");
     }
     renderBuild() {
-        this.code = `<div class="card mx-auto ${this.border} ${this.border_width} ${this.border_radius} ${this.text_color} ${this.bg_color} 
+        this.code = `<div id="${this.type}_${this.id}" class="card mx-auto ${this.border} ${this.border_width} ${this.border_radius} ${this.text_color} ${this.bg_color} 
         ${this.other_class}" style="width: 18rem;">
                 <div class="row g-0">
-                    <div class="col-md-6">
+                    <div class="col-7">
                         <div class="card-body">
-                            <p class="card-text"><small>${this.card_title}</small></p>
-                            <h1 class="fsww-1 card-text">${this.text}</h1>
-                            <p class="card-text"><small class="text-muted">Feels like 32</small></p>
+                            <p class="card-text"><small>${this.card_title_a}</small></p>
+                            <h1 class="card-text" style="font-size:300%">${this.text}</h1>
+                            <p class="card-text mt-4"><small class="text-muted">${this.texta_bottom}</small></p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-5">
                         <div class="card-body">
-                        <p class="card-text"><small>${this.card_titleb}</small></p>
-                        <img src="${this.card_img}" alt="..." style="max-width:100%">
-                        <h1 class="fsww-1 card-text">${this.textb}</h1>
-                        <p class="card-text"><small class="text-muted">Partly cloudy</small></p>
+                        <p class="card-text"><small>${this.card_title_b}</small></p>
+                        <h1><i class="bi ${this.card_img}" style="font-size:200%";></i></h1>
+                        <h1 class="card-text">${this.textb}</h1>
+                        <p class="card-text"><small class="text-muted">${this.textb_bottom}</small></p>
                         </div>
                     </div>
                 </div>
@@ -169,7 +171,7 @@ class CardC extends CardA{
 
 function addCardC() {
     var crd = new CardC("Card");
-    addComp(crd);
+    return addComp(crd);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

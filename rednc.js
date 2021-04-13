@@ -1,7 +1,17 @@
 // Low Code development
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-var comps = [];
 var selected_id = -1;
+var comps = [];
+
+
+// fetch("app.json")
+//     .then(res => res.json())
+//     .then(res_json => {
+//         console.log(res_json.app);
+//         comps = res_json.app;
+
+//     });
+
 addAppOptions();
 updateApp();
 //------------------------------------------------------------------------------------------------------
