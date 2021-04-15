@@ -141,7 +141,7 @@ class CardC extends CardA{
         this.textb_bottom = "textb_bottom";
         this.card_title_a = "card_title_a";
         this.card_title_b = "card_title_b";
-        this.card_img = "bi-cloud-moon-fill";        
+        this.card_img = "bi-emoji-frown";        
         this.editable_props.splice(-1,0,"card_img","card_title_a","card_title_b","textb");
     }
     renderBuild() {

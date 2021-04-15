@@ -31,14 +31,17 @@ function addAppOptions() {
 }
 //------------------------------------------------------------------------------------------------------
 
-function addComp(comp) {
-    var existing_id = [];
-    comps.forEach(element => {
-        existing_id.push(element[1].id)
-    });
-    var nid = Math.floor((Math.random() * 1000) + 1);
-    while (existing_id.includes(nid)) {
+function addComp(comp, id = -1) {
+    var nid = id;
+    if (id == -1) {
+        var existing_id = [];
+        comps.forEach(element => {
+            existing_id.push(element[1].id)
+        });
         nid = Math.floor((Math.random() * 1000) + 1);
+        while (existing_id.includes(nid)) {
+            nid = Math.floor((Math.random() * 1000) + 1);
+        }
     }
     comp.id = nid;
     comps.push([nid, comp]);
