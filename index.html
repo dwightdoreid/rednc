@@ -47,6 +47,17 @@
                         <div class="nav-text actn" onclick="delComp()">Delete</div>
                     </li>
                 </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0 border-start border-end">
+                    <li class="nav-item mx-2">
+                        <div class="nav-text actn" onclick="addView()">Add View</div>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <div class="nav-text actn" onclick="prevView()"><</div>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <div class="nav-text actn" onclick="nextView()">></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -66,7 +77,7 @@
                 <input class="d-block w-100 my-2" type="button" value="textA" onclick="addTextA()">
             </div>
             <div class="col-8 border">
-                <div id="mode"></div>
+                <div><h2 id="mode"></h2><h2 id="view"></h2></div>
                 <div class="border mx-auto overflow-scroll" style="width:360px;height:568px;">
                     <div id="app" style="min-height: 100%;"></div>
                 </div>

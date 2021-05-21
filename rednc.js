@@ -2,15 +2,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 var selected_id = -1;
 var comps = [];
-
-
-// fetch("app.json")
-//     .then(res => res.json())
-//     .then(res_json => {
-//         console.log(res_json.app);
-//         comps = res_json.app;
-
-//     });
+var views = [];
+var active_view = 0;
 
 addAppOptions();
 updateApp();
@@ -30,7 +23,6 @@ function addAppOptions() {
 
 }
 //------------------------------------------------------------------------------------------------------
-
 function addComp(comp, id = -1) {
     var nid = id;
     if (id == -1) {
@@ -44,7 +36,8 @@ function addComp(comp, id = -1) {
         }
     }
     comp.id = nid;
-    comps.push([nid, comp]);
+    // comps.push([nid, comp]);
+    views[active_view].push([nid, comp]);
     updateApp();
 
     return nid;
@@ -63,19 +56,19 @@ function delComp() {
 }
 //------------------------------------------------------------------------------------------------------
 function updateApp() {
+    // console.log(active_view);
+    views[0] = comps;
     var app = document.getElementById("app");
     var app_bg = document.querySelector("#app_bg_color").value;
-    // console.log(app_bg);
     app.classList = "";
     app.classList.add(app_bg);
     app.classList.add("mt-0");
-    // app.classList.add("min-vw-100");
-    // console.log(app.classList);
     app.innerHTML = " ";
-    comps.forEach(element => {
+    views[active_view].forEach(element => {
         app.innerHTML = app.innerHTML + element[1].render();
     });
     document.getElementById("mode").innerHTML = "<h5>Dev</h5>"
+    document.getElementById("view").innerHTML = `<h5>${active_view}</h5>`;
 }
 //------------------------------------------------------------------------------------------------------
 function listElements() {
@@ -149,10 +142,33 @@ function MM(cid_prop) {
 //------------------------------------------------------------------------------------------------------
 function genCode() {
     var app = document.getElementById("app");
+    app.innerHTML = "";
+    var app_code = "";
+    // comps.forEach(element => {
+    //     app.innerHTML = app.innerHTML + element[1].renderBuild();
+    // });
+    // views.forEach((view, indx) => {
+    //     app.innerHTML = app.innerHTML + `<div id="${indx}">`
+    //     view.forEach(element => {
+    //         app.innerHTML = app.innerHTML + element[1].renderBuild();
+    //     });
+    //     app.innerHTML = app.innerHTML + `</divew>`;        
+    // });
 
-    app.innerHTML = " ";
-    comps.forEach(element => {
-        app.innerHTML = app.innerHTML + element[1].renderBuild();
+    views.forEach((view, indx) => {
+        var view_display = "none";
+        view.forEach(element => {
+            app_code = app_code + element[1].renderBuild();
+        });
+
+        if (indx == 0) {
+            view_display = "block"
+        } else {
+            view_display = "none"
+        }
+        app.innerHTML = app.innerHTML + `<div id="view_${indx}" style="display: ${view_display}">
+        ${app_code}
+        </div>`;
     });
 
     document.getElementById("mode").innerHTML = "<h5>Preview</h5>"
@@ -179,5 +195,31 @@ function moveComp(up_down) {
 
     const comp = comps.splice(from, 1)[0];
     comps.splice(to, 0, comp);
+    updateApp();
+}
+//------------------------------------------------------------------------------------------------------
+function addView() {
+    // var x = views;
+    console.log(x);
+    views.push([
+        [3, new NavBarB]
+    ]);
+    active_view = views.length - 1;
+    console.log(views);
+    console.log(active_view);
+    updateApp();
+}
+//------------------------------------------------------------------------------------------------------
+function prevView() {
+    active_view = active_view - 1;
+    active_view < 0 ? active_view = 0 : active_view = active_view;
+    console.log(active_view);
+    updateApp();
+}
+//------------------------------------------------------------------------------------------------------
+function nextView() {
+    active_view = active_view + 1;
+    active_view > views.length - 1 ? active_view = views.length - 1 : active_view = active_view;
+    console.log(active_view);
     updateApp();
 }

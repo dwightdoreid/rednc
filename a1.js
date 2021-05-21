@@ -18,6 +18,5 @@ card1.card_title_b = "";
 card1.textb = "";
 card1.textb_bottom = "";
 
-
 addComp(nav,1);
 addComp(card1,2);
